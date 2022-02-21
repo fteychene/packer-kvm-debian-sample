@@ -1,0 +1,8 @@
+output/
+packer_cache/
+packer-manifest.json
+
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup

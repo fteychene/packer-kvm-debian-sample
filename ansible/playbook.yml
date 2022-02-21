@@ -1,0 +1,8 @@
+
+---
+- name: Local ansible provision
+  hosts: localhost
+  gather_facts: True
+  become: yes
+  roles:
+    - common
