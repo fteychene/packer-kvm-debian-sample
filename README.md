@@ -31,14 +31,6 @@ A VM is booted with the image built with packer, you can connect with `debian:de
 ❯ ssh debian@10.0.100.200
 debian@10.0.100.200's password:
 Linux localhost 5.10.0-11-amd64 #1 SMP Debian 5.10.92-1 (2022-01-18) x86_64
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.
-# BEGIN ANSIBLE MANAGED BLOCK
 ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗
 ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝
 ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗
@@ -53,6 +45,5 @@ permitted by applicable law.
 ██║██║ ╚═╝ ██║██║ ╚═╝ ██║╚██████╔╝   ██║   ██║  ██║██████╔╝███████╗███████╗
 ╚═╝╚═╝     ╚═╝╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝
 
-# END ANSIBLE MANAGED BLOCK
 debian@localhost:~$
 ```
