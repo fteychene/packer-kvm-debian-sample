@@ -1,3 +1,16 @@
+packer {
+  required_plugins {
+    sshkey = {
+      version = ">= 0.1.0"
+      source = "github.com/ivoronin/sshkey"
+    }
+  }
+}
+
+data "sshkey" "install" {
+}
+
+
 variable "output_dir" {
   type    = string
   default = "output"
@@ -18,12 +31,12 @@ variable "source_iso" {
   default = "https://cdimage.debian.org/cdimage/release/11.2.0/amd64/iso-cd/debian-11.2.0-amd64-netinst.iso"
 }
 
-variable "ssh_password" {
+variable "password" {
   type    = string
   default = "debian"
 }
 
-variable "ssh_username" {
+variable "username" {
   type    = string
   default = "debian"
 }
@@ -87,21 +100,23 @@ source qemu "debian" {
   disk_size   = 8000
   accelerator = "kvm"
 
-  headless = true
+  headless = false
 
-  http_directory = "configure"
   http_port_min  = 9990
   http_port_max  = 9999
+  http_content = { "/preseed.cfg" = templatefile("configure/preseed.cfg.pkrtpl", { "ssh_public_key" : data.sshkey.install.public_key, "username": var.username, "password": var.password }) }
 
   # SSH ports to redirect to the VM being built
   host_port_min = 2222
   host_port_max = 2229
   # This user is configured in the preseed file.
-  ssh_password     = "${var.ssh_password}"
-  ssh_username     = "${var.ssh_username}"
+  #ssh_password     = "${var.password}"
+  ssh_username     = "${var.username}"
   ssh_wait_timeout = "1000s"
+  ssh_private_key_file      = data.sshkey.install.private_key_path  
+  ssh_clear_authorized_keys = true
 
-  shutdown_command = "echo '${var.ssh_password}'  | sudo -S /sbin/shutdown -hP now"
+  shutdown_command = "sudo -S /sbin/shutdown -hP now"
 
   # Builds a compact image
   disk_compression   = true

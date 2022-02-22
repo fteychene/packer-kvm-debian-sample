@@ -6,6 +6,24 @@ terraform {
   }
 }
 
+resource "libvirt_cloudinit_disk" "commoninit" {
+  name      = "commoninit.iso"
+  user_data = data.template_file.user_data.rendered
+}
+
+variable "ssh-key" {
+    type = string
+    default = ""
+}
+
+data "template_file" "user_data" {
+  template = file("${path.module}/cloud_init.cfg")
+  vars = {
+    ssh-key = var.ssh-key
+  }
+}
+
+
 provider "libvirt" {
   uri = "qemu:///system"
 }

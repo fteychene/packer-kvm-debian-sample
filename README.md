@@ -28,8 +28,8 @@ ip = "10.0.100.XXX"
 A VM is booted with the image built with packer, you can connect with `debian:debian` on the output ip by terraform.
 
 ```
-❯ ssh debian@10.0.100.200
-debian@10.0.100.200's password:
+❯ ssh debian@10.0.100.XXX
+debian@10.0.100.XXX's password:
 Linux localhost 5.10.0-11-amd64 #1 SMP Debian 5.10.92-1 (2022-01-18) x86_64
 ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗
 ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝
