@@ -3,8 +3,6 @@
 ## Build from cloud-init Debian
 
 ```
-❯ cloud-localds cloud-init/seed.img cloud-init/userdata.cfg 
-
 ❯ packer build debian-cloud-init.pkr.hcl
 ...
 ==> Wait completed after 51 seconds 371 milliseconds
