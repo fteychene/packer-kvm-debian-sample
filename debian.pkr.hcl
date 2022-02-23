@@ -41,12 +41,6 @@ variable "username" {
   default = "debian"
 }
 
-# "timestamp" template function replacement
-locals {
-  timestamp = regex_replace(timestamp(), "[- TZ:]", "")
-}
-
-
 build {
   description = <<EOF
 This builder builds a QEMU image from a Debian "netinst" CD ISO file.
@@ -66,21 +60,10 @@ EOF
     ]
   }
 
-  provisioner "file" {
-    source      = "configure/install-ansible.sh"
-    destination = "/tmp/install-ansible.sh"
-  }
-
-  provisioner "shell" {
-    inline = [
-      "sh -cx 'sudo bash /tmp/install-ansible.sh'"
-    ]
-  }
-
-
-  provisioner "ansible-local" {
-    playbook_file = "ansible/playbook.yml"
-    playbook_dir = "ansible"
+  provisioner "ansible" {
+    playbook_file           = "ansible/playbook.yml"
+    ansible_ssh_extra_args  = ["-o IdentitiesOnly=yes"]
+    keep_inventory_file     = true
   }
 
   post-processor "manifest" {
@@ -94,25 +77,21 @@ source qemu "debian" {
   iso_checksum = "${var.source_checksum_url}"
 
   cpus = 1
-  # The Debian installer warns with a dialog box if there's not enough memory
-  # in the system.
   memory      = 1000
   disk_size   = 8000
   accelerator = "kvm"
 
-  headless = true
+  headless = false
 
   http_port_min  = 9990
   http_port_max  = 9999
-  http_content = { "/preseed.cfg" = templatefile("configure/preseed.cfg.pkrtpl", { "ssh_public_key" : data.sshkey.install.public_key, "username": var.username, "password": var.password }) }
+  http_content   = { "/preseed.cfg" = templatefile("configure/preseed.cfg.pkrtpl", { "ssh_public_key" : data.sshkey.install.public_key, "username": var.username, "password": var.password }) }
 
   # SSH ports to redirect to the VM being built
-  host_port_min = 2222
-  host_port_max = 2229
-  # This user is configured in the preseed file.
-  #ssh_password     = "${var.password}"
-  ssh_username     = "${var.username}"
-  ssh_wait_timeout = "1000s"
+  host_port_min             = 2222
+  host_port_max             = 2229
+  ssh_username              = "${var.username}"
+  ssh_wait_timeout          = "1000s"
   ssh_private_key_file      = data.sshkey.install.private_key_path  
   ssh_clear_authorized_keys = true
 
@@ -128,7 +107,7 @@ source qemu "debian" {
   output_directory = "${var.output_dir}"
   vm_name          = "${var.output_name}"
 
-  boot_wait = "1s"
+  boot_wait    = "1s"
   boot_command = [
     "<down><tab>", # non-graphical install
     "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",

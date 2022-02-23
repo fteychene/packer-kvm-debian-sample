@@ -1,7 +1,7 @@
 
 ---
-- name: Local ansible provision
-  hosts: localhost
+- name: Ansible provision
+  hosts: default
   gather_facts: True
   become: yes
   roles:
