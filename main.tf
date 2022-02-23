@@ -8,21 +8,25 @@ terraform {
 
 resource "libvirt_cloudinit_disk" "commoninit" {
   name      = "commoninit.iso"
-  user_data = data.template_file.user_data.rendered
+  user_data = <<-EOT
+#cloud-config
+hostname: debian-immutable
+fqdn: debian-immutable.tf.local
+manage_etc_hosts: localhost
+
+users:
+- name: debian
+  plain_text_passwd: debian
+  lock_passwd: false
+  ssh_authorized_keys:
+    - ${var.ssh-key}
+EOT
 }
 
 variable "ssh-key" {
     type = string
     default = ""
 }
-
-data "template_file" "user_data" {
-  template = file("${path.module}/cloud_init.cfg")
-  vars = {
-    ssh-key = var.ssh-key
-  }
-}
-
 
 provider "libvirt" {
   uri = "qemu:///system"

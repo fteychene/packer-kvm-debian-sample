@@ -44,9 +44,9 @@ build {
 
 
 source qemu "debian" {
-  iso_url          = "${var.source_qcow}"
-  iso_checksum     = "${var.source_checksum_url}"
-  disk_image       = true
+  iso_url      = "${var.source_qcow}"
+  iso_checksum = "${var.source_checksum_url}"
+  disk_image   = true
 
   cpus = 1
   memory      = 2048
@@ -56,11 +56,11 @@ source qemu "debian" {
   headless = true
 
   # SSH ports to redirect to the VM being built
-  host_port_min             = 2222
-  host_port_max             = 2229
-  ssh_username              = "${var.username}"
-  ssh_password              = "${var.password}"
-  ssh_wait_timeout          = "1000s"
+  host_port_min    = 2222
+  host_port_max    = 2229
+  ssh_username     = "${var.username}"
+  ssh_password     = "${var.password}"
+  ssh_wait_timeout = "1000s"
 
   shutdown_command = "sudo -S /sbin/shutdown -hP now"
 
