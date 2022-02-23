@@ -50,7 +50,7 @@ EOF
   sources = ["source.qemu.debian"]
 
   provisioner "file" {
-    source      = "configure/configure-qemu-image.sh"
+    source      = "netinst/configure-qemu-image.sh"
     destination = "/tmp/configure-qemu-image.sh"
   }
 
@@ -81,11 +81,11 @@ source qemu "debian" {
   disk_size   = 8000
   accelerator = "kvm"
 
-  headless = false
+  headless = true
 
   http_port_min  = 9990
   http_port_max  = 9999
-  http_content   = { "/preseed.cfg" = templatefile("configure/preseed.cfg.pkrtpl", { "ssh_public_key" : data.sshkey.install.public_key, "username": var.username, "password": var.password }) }
+  http_content   = { "/preseed.cfg" = templatefile("netinst/preseed.cfg.pkrtpl", { "ssh_public_key" : data.sshkey.install.public_key, "username": var.username, "password": var.password }) }
 
   # SSH ports to redirect to the VM being built
   host_port_min             = 2222

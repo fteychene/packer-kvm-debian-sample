@@ -1,21 +1,42 @@
-# Debian image builder for local tests
+# QEMU Debian packer image builder 
 
-Configuration script is copied from [multani/packer-qemu-debian](https://github.com/multani/packer-qemu-debian). 
-Thx a lot for this template to configure cloud-image to be ran locally easily.
+## Build from cloud-init Debian
 
-## Execute
+```
+❯ cloud-localds cloud-init/seed.img cloud-init/userdata.cfg 
 
-
-To run the image :
-```bash
-❯ packer build debian.pkr.hcl
+❯ packer build debian-cloud-init.pkr.hcl
 ...
 ==> Wait completed after 7 minutes 24 seconds
 
 ==> Builds finished. The artifacts of successful builds are:
 --> qemu.debian: VM files in directory: output
 --> qemu.debian: VM files in directory: output
+```
 
+You can edit the cloud-init configuration of the build machine by recreating the [cloud-init/seed.img] with your custom userdata.  
+Here is the [userdata.cfg](cloud-init/userdata.cfg) used to create the already defined seed.img.
+
+## Build from netinst ISO
+
+Configuration script is copied from [multani/packer-qemu-debian](https://github.com/multani/packer-qemu-debian). 
+Thx a lot for this template to configure cloud-image to be ran locally easily.
+
+```
+❯ packer build debian-netinst.pkr.hcl
+...
+==> Wait completed after 6 minutes 5 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> qemu.debian: VM files in directory: output
+--> qemu.debian: VM files in directory: output
+```
+
+## Run a VM with builded image
+
+
+To run the image :
+```bash
 ❯ terraform apply -auto-approve
 ... 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
