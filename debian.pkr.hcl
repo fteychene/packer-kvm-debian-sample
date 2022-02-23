@@ -100,7 +100,7 @@ source qemu "debian" {
   disk_size   = 8000
   accelerator = "kvm"
 
-  headless = false
+  headless = true
 
   http_port_min  = 9990
   http_port_max  = 9999

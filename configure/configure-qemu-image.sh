@@ -104,10 +104,10 @@ EOF
 # This prevents to have more fine-grained configuration and enable lot of
 # automagic configuration on interfaces that could (should!) be managed outside
 # of cloud-init.
-cat <<EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-network:
-  config: disabled
-EOF
+# cat <<EOF > /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+# network:
+#   config: disabled
+# EOF
 
 # Configure cloud-init to allow image instanciation-time customization.
 # The only cloud-init "datasources" that make sense for this image are:

@@ -47,6 +47,8 @@ resource "libvirt_domain" "worker" {
   memory = "2048"
   vcpu   = 2
 
+  cloudinit = libvirt_cloudinit_disk.commoninit.id
+
   network_interface {
     network_id     = libvirt_network.tf.id
     wait_for_lease = true
