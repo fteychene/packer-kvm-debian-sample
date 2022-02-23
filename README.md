@@ -7,7 +7,7 @@
 
 ❯ packer build debian-cloud-init.pkr.hcl
 ...
-==> Wait completed after 7 minutes 24 seconds
+==> Wait completed after 51 seconds 371 milliseconds
 
 ==> Builds finished. The artifacts of successful builds are:
 --> qemu.debian: VM files in directory: output
