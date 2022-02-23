@@ -47,3 +47,9 @@ Linux localhost 5.10.0-11-amd64 #1 SMP Debian 5.10.92-1 (2022-01-18) x86_64
 
 debian@localhost:~$
 ```
+
+## Misc
+
+> I have an error when running Terraform `could not open disk image /var/lib/libvirt/images/debian.qcow2: Permission denied`
+
+I you are on Ubuntu please try to set `security_driver = "none"` in `/etc/libvirt/qemu.conf` and restart you `libvirt` service (`systemctl restart libvirtd`)
