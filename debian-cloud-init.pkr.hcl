@@ -34,6 +34,7 @@ build {
   provisioner "ansible" {
     playbook_file           = "ansible/playbook.yml"
     ansible_ssh_extra_args  = ["-o IdentitiesOnly=yes"]
+    extra_arguments = [ "--scp-extra-args", "'-O'" ]
     keep_inventory_file     = true
   }
 

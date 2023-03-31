@@ -83,6 +83,6 @@ Check your ssh configuration.
 You can try to add this in your `.ssh/config` temporarly to fix the issue :
 ```
 Host 127.0.0.1
-  HostKeyAlgorithms ssh-rsa
-  PubkeyAcceptedKeyTypes ssh-rsa
+  HostKeyAlgorithms +ssh-rsa
+  PubkeyAcceptedKeyTypes +ssh-rsa
 ```
