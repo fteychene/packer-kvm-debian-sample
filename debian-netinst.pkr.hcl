@@ -23,12 +23,12 @@ variable "output_name" {
 
 variable "source_checksum_url" {
   type    = string
-  default = "file:https://cdimage.debian.org/cdimage/release/11.2.0/amd64/iso-cd/SHA256SUMS"
+  default = "file:https://cdimage.debian.org/cdimage/release/12.5.0/amd64/iso-cd/SHA256SUMS"
 }
 
 variable "source_iso" {
   type    = string
-  default = "https://cdimage.debian.org/cdimage/release/11.2.0/amd64/iso-cd/debian-11.2.0-amd64-netinst.iso"
+  default = "https://cdimage.debian.org/cdimage/release/12.5.0/amd64/iso-cd/debian-12.5.0-amd64-netinst.iso"
 }
 
 variable "password" {
@@ -63,6 +63,7 @@ EOF
   provisioner "ansible" {
     playbook_file           = "ansible/playbook.yml"
     ansible_ssh_extra_args  = ["-o IdentitiesOnly=yes"]
+    user = "${var.username}"
     keep_inventory_file     = true
   }
 

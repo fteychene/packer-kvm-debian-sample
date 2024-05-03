@@ -2,7 +2,7 @@
 ---
 - name: Ansible provision
   hosts: default
-  gather_facts: True
-  become: yes
+  become: true
+  gather_facts: true
   roles:
     - common

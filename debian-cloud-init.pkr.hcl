@@ -10,12 +10,12 @@ variable "output_name" {
 
 variable "source_checksum_url" {
   type    = string
-  default = "file:https://cloud.debian.org/images/cloud/bullseye/20220121-894/SHA512SUMS"
+  default = "file:https://cloud.debian.org/images/cloud/bookworm/20230531-1397/SHA512SUMS"
 }
 
 variable "source_qcow" {
   type    = string
-  default = "https://cloud.debian.org/images/cloud/bullseye/20220121-894/debian-11-generic-amd64-20220121-894.qcow2"
+  default = "https://cloud.debian.org/images/cloud/bookworm/20230531-1397/debian-12-generic-amd64-20230531-1397.qcow2"
 }
 
 variable "password" {

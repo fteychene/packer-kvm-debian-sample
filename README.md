@@ -19,6 +19,7 @@ Here is the [userdata.cfg](cloud-init/userdata.cfg) used to create the already d
 
 Configuration script is copied from [multani/packer-qemu-debian](https://github.com/multani/packer-qemu-debian). 
 Thx a lot for this template to configure cloud-image to be ran locally easily.
+You can find more informations and example preseed from [debian documentation](https://wiki.debian.org/DebianInstaller/Preseed#Default_preseed_files)
 
 ```
 ❯ packer build debian-netinst.pkr.hcl
