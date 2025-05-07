@@ -1,5 +1,13 @@
 packer {
   required_plugins {
+    qemu = {
+      version = "~> 1"
+      source  = "github.com/hashicorp/qemu"
+    }
+    ansible = {
+      version = "~> 1"
+      source = "github.com/hashicorp/ansible"
+    }
     sshkey = {
       version = ">= 0.1.0"
       source = "github.com/ivoronin/sshkey"
@@ -23,12 +31,12 @@ variable "output_name" {
 
 variable "source_checksum_url" {
   type    = string
-  default = "file:https://cdimage.debian.org/cdimage/release/12.5.0/amd64/iso-cd/SHA256SUMS"
+  default = "file:https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS"
 }
 
 variable "source_iso" {
   type    = string
-  default = "https://cdimage.debian.org/cdimage/release/12.5.0/amd64/iso-cd/debian-12.5.0-amd64-netinst.iso"
+  default = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso"
 }
 
 variable "password" {
