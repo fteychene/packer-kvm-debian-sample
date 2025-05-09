@@ -1,8 +1,17 @@
-# QEMU Debian packer image builder 
+# QEMU Debian packer image builder
+
+## Requirements
+- [Packer](https://developer.hashicorp.com/packer/install)
+- [Terraform](https://developer.hashicorp.com/terraform)
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+
+> [!NOTE]
+> You may need `mkisofs` to build the ISO image.
 
 ## Build from cloud-init Debian
 
 ```
+❯ packer init debian-cloud-init.pkr.hcl
 ❯ packer build debian-cloud-init.pkr.hcl
 ...
 ==> Wait completed after 51 seconds 371 milliseconds
@@ -22,6 +31,7 @@ Thx a lot for this template to configure cloud-image to be ran locally easily.
 You can find more informations and example preseed from [debian documentation](https://wiki.debian.org/DebianInstaller/Preseed#Default_preseed_files)
 
 ```
+❯ packer init debian-netinst.pkr.hcl
 ❯ packer build debian-netinst.pkr.hcl
 ...
 ==> Wait completed after 6 minutes 5 seconds
@@ -33,9 +43,9 @@ You can find more informations and example preseed from [debian documentation](h
 
 ## Run a VM with builded image
 
-
 To run the image :
 ```bash
+❯ terraform init
 ❯ terraform apply -auto-approve
 ... 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
@@ -73,6 +83,15 @@ debian@localhost:~$
 > I have an error when running Terraform `could not open disk image /var/lib/libvirt/images/debian.qcow2: Permission denied`
 
 I you are on Ubuntu please try to set `security_driver = "none"` in `/etc/libvirt/qemu.conf` and restart you `libvirt` service (`systemctl restart libvirtd`)
+
+> I have the folling error: `Error: error defining libvirt domain: opération échouée : Le domaine « debian-immutable » existe déjà avec l’uuid 0efd9444-af55-4e5b-8aa2-e3bf7427050f`
+
+This error can be fixed using `virsh` package.
+```bash
+sudo virsh undefine debian-immutable
+```
+[!NOTE]
+> Be careful to replace `debian-immutable` with the name in your error.
 
 > Ansible is failing with an ssh error
 > qemu.debian: fatal: [default]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Unable to negotiate with 127.0.0.1 port 41305: no matching host key type found. Their offer: ssh-rsa", "unreachable": true}
